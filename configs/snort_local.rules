@@ -1,0 +1,14 @@
+# pfSense Services > Snort > local.rules (2일차 적용 예정이던 탐지 룰, 발표자료 슬라이드 14)
+# 공격 실행 절차는 범위 밖 — 룰 적용과 alert 확인까지가 범위
+
+# 포트 스캔 (nmap SYN): 같은 출발지에서 5초에 SYN 30개
+alert tcp any any -> $HOME_NET any (msg:"NMAP SYN Scan"; flags:S; detection_filter:track by_src, count 30, seconds 5; sid:1000001;)
+
+# SSH 브루트포스: 22번으로 30초에 SYN 15개
+alert tcp any any -> $HOME_NET 22 (msg:"SSH Brute Force"; flags:S; detection_filter:track by_src, count 15, seconds 30; sid:1000005;)
+
+# ICMP Flood: 5초에 echo request 200개
+alert icmp any any -> $HOME_NET any (msg:"ICMP Flood"; itype:8; detection_filter:track by_src, count 200, seconds 5; sid:1000003;)
+
+# 내부에서 외부 DNS 직접 질의 (DNS 터널링 의심) — 60초에 한 번만 알림
+alert udp $HOME_NET any -> !$HOME_NET 53 (msg:"DNS to External"; threshold:type limit, track by_src, count 1, seconds 60; sid:1000007;)
