@@ -115,7 +115,7 @@ VM 을 돌리던 호스트 PC(Windows)에 설정 프록시가 켜져 있었고 p
 
 pfSense 최신 UI 명칭 차이: `Single host or alias` → `Address or Alias`, `LAN net` → `LAN subnets`. 웹이 안 열리면 `Services > Snort > Blocked` 도 확인.
 
-## 4. 2일차 계획 (발표 시점 기준 "예정" — 실제 수행 여부는 기록 없음)
+## 4. 2일차 계획 (발표 시점 기준 "예정")
 - ACL 확장: RDP(3389)만 허용 시나리오
 - 암호화 검증: WAN 구간 Wireshark 로 OpenVPN(UDP 1194) 암호화 vs 내부 평문 대조
 - 라우팅 증빙: 재택 `route print`, Rocky `ip route`
